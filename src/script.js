@@ -48,15 +48,23 @@ function playRound(e){
     humanChoice = e.target.className
     
 
-    if(humanChoice === computerChoice){return;}
+    if(humanChoice === computerChoice){
+        displayChoice(humanChoice,computerChoice);
+        document.querySelector(".round").textContent = "This Round is a Draw!"
+        return displayScore();
+    }
 
     else if(humanChoice == "rock"){
         if(computerChoice=="scissors"){
             humanScore++;
+            displayChoice(humanChoice,computerChoice);
+            document.querySelector(".round").textContent = "This Round is won by You!"
             return displayScore();
         }
         else if(computerChoice=="paper"){
             computerScore++;
+            displayChoice(humanChoice,computerChoice);
+            document.querySelector(".round").textContent = "This Round is won by Computer!"
             return displayScore();
         }
     }
@@ -64,10 +72,14 @@ function playRound(e){
     else if(humanChoice == "paper"){
         if(computerChoice=="rock"){
             humanScore++;
+            displayChoice(humanChoice,computerChoice);
+            document.querySelector(".round").textContent = "This Round is won by You!"
             return displayScore();
         }
         else if(computerChoice=="scissors"){
             computerScore++;
+            displayChoice(humanChoice,computerChoice);
+            document.querySelector(".round").textContent = "This Round is won by Computer!"
             return displayScore();
         }
     }
@@ -75,18 +87,29 @@ function playRound(e){
     else if(humanChoice == "scissors"){
         if(computerChoice=="paper"){
             humanScore++;
+            displayChoice(humanChoice,computerChoice);
+            document.querySelector(".round").textContent = "This Round is won by You!"
             return displayScore();
         }
         else if(computerChoice=="rock"){
             computerScore++;
+            displayChoice(humanChoice,computerChoice);
+            document.querySelector(".round").textContent = "This Round is won by Computer!"
             return displayScore();
         }
     }
 }
 
 function displayScore(){
-    humanScoreText.textContent = `Human Score is ${humanScore}`;
+    humanScoreText.textContent = `Your Score is ${humanScore}`;
     computerScoreText.textContent = `Computer Score is ${computerScore}`;
+    return;
+}
+
+function displayChoice(humanChoice,computerChoice){
+    document.querySelector(".choiceByHuman").textContent = `You Chose: ${humanChoice}`
+    document.querySelector(".choiceByComputer").textContent = `Computer Chose: ${computerChoice}`
+    return;
 }
 
 function gameEnd(){

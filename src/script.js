@@ -1,3 +1,15 @@
+const buttonRock = document.querySelector(".rock")
+const buttonPaper = document.querySelector(".paper")
+const buttonScissors = document.querySelector(".scissors")
+
+let humanScore = 0;
+let computerScore = 0;
+
+
+const humanScoreText = document.querySelector(".humanScoreClass")
+const computerScoreText = document.querySelector(".computerScoreClass")
+const resultText = document.querySelector(".result")
+
 function getComputerChoice() {
     let number = Math.floor(Math.random() * 3);
     switch (number) {
@@ -7,16 +19,18 @@ function getComputerChoice() {
     }
 }
 
-// function getHumanChoice(){
-//     let choice = prompt("Rock Paper or Scissors");
-//     return choice;
-// }
+function getHumanChoice() {
+    return new Promise(resolve => {
+        buttonRock.addEventListener("click", () => resolve("Rock"));
+        buttonPaper.addEventListener("click", () => resolve("Paper"));
+        buttonScissors.addEventListener("click", () => resolve("Scissors"));
+    });
+}
 
-function playRound(){
+
+async function playRound(){
     let computerChoice = getComputerChoice();
-    // let humanChoice = getHumanChoice();
-    computerChoice = computerChoice.toLowerCase();
-    humanChoice = humanChoice.toLowerCase();
+    let humanChoice = await getHumanChoice();
 
     if(humanChoice === computerChoice){return;}
 
@@ -55,22 +69,16 @@ function playRound(){
 }
 
 function displayScore(){
-    humanScoreText.textContent = `Human Score is ${humanScore}`
-    computerScoreText.textContent = `Computer Score is ${computerScore}`
+    humanScoreText.textContent = `Human Score is ${humanScore}`;
+    computerScoreText.textContent = `Computer Score is ${computerScore}`;
 }
 
-buttonRock.addEventListener("click",() => humanChoice = "Rock");
-buttonPaper.addEventListener("click",() => humanChoice = "Paper");
-buttonScissors.addEventListener("click",() => humanChoice = "Scissors");
+async function playGame(){
 
-
-function playGame(){
-    displayScore();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
+    for(let i = 0;i < 5;i++){
+        await playRound();
+        displayScore();
+    }
 
     if(humanScore == computerScore){
         resultText.textContent = "ITS A DRAW"
@@ -85,17 +93,17 @@ function playGame(){
     }
 }
 
-let humanScore = 0;
-let computerScore = 0;
+// let humanScore = 0;
+// let computerScore = 0;
 
 
-const buttonRock = document.querySelector(".rock")
-const buttonPaper = document.querySelector(".paper")
-const buttonScissors = document.querySelector(".scissors")
+// const buttonRock = document.querySelector(".rock")
+// const buttonPaper = document.querySelector(".paper")
+// const buttonScissors = document.querySelector(".scissors")
 
-const humanScoreText = document.querySelector(".humanScoreClass")
-const computerScoreText = document.querySelector(".computerScoreClass")
-const resultText = document.querySelector(".result")
+// const humanScoreText = document.querySelector(".humanScoreClass")
+// const computerScoreText = document.querySelector(".computerScoreClass")
+// const resultText = document.querySelector(".result")
 
 playGame();
 
